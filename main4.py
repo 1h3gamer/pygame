@@ -22,12 +22,12 @@ class Sprite(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.Surface([width,height])
         self.image.fill(pygame.Color("blue"))
-        pygame.draw.rect(self.image,color,pygame.rect(0,0,width,height))
+        pygame.draw.rect(self.image,color,pygame.Rect(0,0,width,height))
         self.rect = self.image.get_rect()
 
     def move(self,x_change,y_change):
-        self.rect.x = max(min(self.rect.x + x_change, screen_width-self.rect.width))
-        self.rect.y = max(min(self.rect.y + y_change, screen_height-self.rect.height))
+        self.rect.x = max(min(self.rect.x + x_change, screen_width-sprite1.rect.width))
+        self.rect.y = max(min(self.rect.y + y_change, screen_height-sprite1.rect.height))
 
 all_sprites = pygame.sprite.Group()
 sprite1 = Sprite(pygame.Color("orange"),20,30)
@@ -40,13 +40,13 @@ sprite2.rect.x = random.randint(0,screen_width-sprite2.rect.width)
 sprite2.rect.y = random.randint(0,screen_height-sprite2.rect.height)
 all_sprites.add(sprite2)
 
-running = False
+running = True
 won = False
 clock = pygame.time.Clock()
 
 while running:
     for event in pygame.event.get():
-        if event.type==pygame.QUIT or (event.type==pygame.KEYDOWN and event.type==pygame.K_x):
+        if event.type==pygame.QUIT or (event.type==pygame.KEYDOWN and event.key==pygame.K_x):
             running = False
     if not won:
         keys = pygame.key.get_pressed()
