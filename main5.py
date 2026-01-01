@@ -1,27 +1,43 @@
 import pygame
+import random
+
+surf_color = (0,142,204)
+color = (0,0,0)
+
+class Sprite(pygame.sprite.Sprite):
+    def __init__(self,color,height,width):
+        super().__init__()
+        self.image = pygame.Surface([width,height])
+        self.image.fill(surf_color)
+        pygame.draw.rect(self.image,color,pygame.Rect(0,0,width,height))
+        self.rect = self.image.get_rect()
 
 pygame.init()
-window = pygame.display.set_mode((400,400))
+screen = pygame.display.set_mode((500,400))
+pygame.display.set_caption("Creating Sprite")
 
-window.fill((255,255,255))
+all_sprites_list = pygame.sprite.Group()
+sp1 = Sprite(color,20,30)
+sp1.rect.x = random.randint(0,480)
+sp1.rect.y = random.randint(0,370)
+all_sprites_list.add(sp1)
 
-green = (0,255,0)
-sprite1=pygame.draw.rect(window,green,(34,30),60)
-sprite2=pygame.draw.rect(window,green,(100,40),40,50)
+exit = True
 
-pygame.display.update()
+clock = pygame.time.Clock()
 
-running = True
-while running:
+
+while exit:
     for event in pygame.event.get():
-        if event.type==pygame.QUIT:
-            running = False
-
-while sprite1 == False:
-        pressed = pygame.key.get_pressed()
-        if pressed[pygame.K_LEFT]: x-= 3
-        if pressed[pygame.K_RIGHT]: x+= 3
-        if pressed[pygame.K_UP]: y-= 3
-        if pressed[pygame.K_DOWN]: y+= 3
+        if event.type == pygame.QUIT:
+            exit = False
+# Update Sprite Group
+    all_sprites_list.update()
+# Screen Set up
+    screen.fill(surf_color)
+# Displaying Sprites
+    all_sprites_list.draw(screen)
+    pygame.display.flip()
+    clock.tick(60)
 
 pygame.quit()
