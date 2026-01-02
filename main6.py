@@ -88,7 +88,7 @@ def enemy(x,y,i):
 
 def fire_bullet(x,y):
     global bullet_state
-    bullet_state = "Fire"
+    bullet_state = "fire"
     screen.blit(bullet_img,(x+16,y+10))
 
 def isCollision(enemy_x,enemy_y,bullet_x,bullet_y):
